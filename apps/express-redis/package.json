@@ -1,0 +1,27 @@
+{
+  "name": "express-redis",
+  "version": "1.0.0",
+  "description": "Application to show different usecases with redis",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "pnpm run /^dev:.*/",
+    "dev:build": "node ./scripts/buildApp.mjs",
+    "dev:start": "node --watch-path=./dist ./dist/index.cjs",
+    "build": "NODE_ENV=production node ./scripts/buildApp.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.5.4",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "redis": "^4.7.0",
+    "zod": "^3.23.8"
+  }
+}
