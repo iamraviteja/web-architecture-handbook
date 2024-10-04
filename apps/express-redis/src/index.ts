@@ -1,6 +1,10 @@
 import express from "express";
 
+import getRedisClient, { disconnectClient } from "./utils/redisclient.js";
+
 import UserRoutes from "./routes/user.js";
+import SkillRoutes from "./routes/skills.js";
+import FakeRoutes from "./routes/fake.js";
 
 import { errorHandler } from "./middlewares/errorhandler.js";
 
@@ -9,8 +13,15 @@ const app = express();
 
 app.use(express.json());
 
+// connect to redis
+(async () => {
+    await getRedisClient();
+})()
+
 // routes
 app.use("/user", UserRoutes);
+app.use("/skills", SkillRoutes);
+app.use("/fake", FakeRoutes);
 
 // app level middlewares
 app.use(errorHandler);
@@ -24,9 +35,11 @@ let server = app.listen(PORT, () => {
 
 function appCleanUp() {
     if(server){
-        server.close((error) => {
+        server.close(async (error) => {
             if(error){
                 throw new Error(error.message);
+            }else {
+                await disconnectClient();
             }
         })
     }
