@@ -8,7 +8,8 @@
     "dev": "pnpm run /^dev:.*/",
     "dev:build": "node ./scripts/buildApp.mjs",
     "dev:start": "node --watch-path=./dist ./dist/index.cjs",
-    "build": "NODE_ENV=production node ./scripts/buildApp.mjs"
+    "build": "NODE_ENV=production node ./scripts/buildApp.mjs",
+    "seed": "pnpm dlx tsx ./src/seed/index.ts"
   },
   "keywords": [],
   "author": "",

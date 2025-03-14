@@ -19,3 +19,5 @@ export const usersByRatingKey = () => getKey('by_rating');
 export const fakeUsersKey = (id:string) => getKey('fake_users', id);
 
 export const fakePostsKey = (id:string) => getKey('fake_posts', id);
+
+export const fakeUsersIndexKey = `idx:${getKey('fake_users')}`;

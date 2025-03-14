@@ -1,7 +1,7 @@
 import express, { type Request } from "express";
 import getRedisClient from "../utils/redisclient";
-import { fakePostsKey, fakeUsersKey } from "../utils/rediskeys";
-import { errorResponse, successResponse } from "../utils/responses";
+import { fakePostsKey, fakeUsersIndexKey, fakeUsersKey } from "../utils/rediskeys";
+import { successResponse } from "../utils/responses";
 
 const router = express.Router();
 
@@ -52,5 +52,18 @@ router.get("/:id/user", async (req: Request<{ id: string }>, res, next) => {
     next(error);
   }
 });
+
+// Search users
+router.get("/search", async (req: Request, res, next) => {
+    let { q } = req.query;
+    try {
+      const client = await getRedisClient();
+      let data = await client.ft.search(fakeUsersIndexKey, `@name:${q}`);
+  
+      successResponse(res, data, "get fake user search");
+    } catch (error) {
+      next(error);
+    }
+  });
 
 export default router;
